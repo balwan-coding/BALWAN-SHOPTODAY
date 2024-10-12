@@ -43,6 +43,15 @@ function ProductorDetailCard({ onAddToCart }) {
 
   function handleButtonClick() {
     onAddToCart(id, count);
+    setCount(1);
+  }
+
+  function handlePrevewCunt() {
+    setCount(1);
+  }
+
+  function handleNextCount() {
+    setCount(1);
   }
 
   if (loading) {
@@ -55,8 +64,8 @@ function ProductorDetailCard({ onAddToCart }) {
 
   return (
     <>
-      <div className="flex flex-col h-screen max-w-md overflow-scroll bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
-        <div className="flex flex-col mt-3 bg-white shadow-md sm:h-96 md:flex-row md:w-auto">
+      <div className="flex flex-col h-screen max-w-md bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
+        <div className="flex flex-col h-full mt-3 bg-white shadow-md sm:h-96 md:flex-row md:w-auto">
           <Link to="/">
             <HiArrowNarrowLeft className="text-3xl hover:text-red-700" />
           </Link>
@@ -109,6 +118,7 @@ function ProductorDetailCard({ onAddToCart }) {
         <div className="flex justify-between m-2 ">
           {id > 1 ? (
             <Link
+              onClick={handlePrevewCunt}
               className="flex p-2 text-white bg-blue-950"
               to={"/ProductorDetailCard/" + (id - 1)}
             >
@@ -116,10 +126,12 @@ function ProductorDetailCard({ onAddToCart }) {
             </Link>
           ) : (
             <div className="flex p-2 text-white cursor-not-allowed bg-slate-600">
-              <HiArrowNarrowLeft className="text-3xl text-white" /> Preview
+              <HiArrowNarrowLeft className="text-2xl text-white md:text-3xl" />{" "}
+              Preview
             </div>
           )}
           <Link
+            onClick={handleNextCount}
             className="flex p-2 text-white bg-blue-950"
             to={"/ProductorDetailCard/" + (id + 1)}
           >
