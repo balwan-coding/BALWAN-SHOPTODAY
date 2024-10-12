@@ -55,7 +55,7 @@ function ProductorDetailCard({ onAddToCart }) {
 
   return (
     <>
-      <div className="flex flex-col h-screen max-w-md overflow-hidden bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
+      <div className="flex flex-col h-screen max-w-md overflow-scroll bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
         <div className="flex flex-col mt-3 bg-white shadow-md sm:h-96 md:flex-row md:w-auto">
           <Link to="/">
             <HiArrowNarrowLeft className="text-3xl hover:text-red-700" />
