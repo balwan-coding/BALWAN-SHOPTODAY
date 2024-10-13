@@ -65,7 +65,7 @@ function ProductorDetailCard({ onAddToCart }) {
 
   return (
     <>
-      <div className="flex flex-col h-screen max-w-md bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
+      <div className="flex flex-col h-screen max-w-md mb-2 bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
         <div className="flex flex-col h-full mt-3 bg-white shadow-md sm:h-96 md:flex-row md:w-auto">
           <Link to="/">
             <HiArrowNarrowLeft className="text-3xl hover:text-red-700" />
@@ -118,14 +118,14 @@ function ProductorDetailCard({ onAddToCart }) {
               {id > 1 ? (
                 <Link
                   onClick={handlePrevewCunt}
-                  className="flex p-2 text-black"
+                  className="flex p-2 text-black "
                   to={"/ProductorDetailCard/" + (id - 1)}
                 >
-                  <AiFillCaretLeft className="text-3xl text-black md:text-3xl" />{" "}
+                  <AiFillCaretLeft className="text-3xl text-black md:text-3xl hover:text-red-700" />{" "}
                 </Link>
               ) : (
-                <div className="flex p-2 cursor-not-allowed ">
-                  <AiFillCaretLeft className="text-2xl text-black md:text-3xl" />
+                <div className="flex p-2 text-gray-400 cursor-not-allowed ">
+                  <AiFillCaretLeft className="text-2xl text-gray-400 md:text-3xl" />
                 </div>
               )}
 
@@ -134,7 +134,7 @@ function ProductorDetailCard({ onAddToCart }) {
                 className="flex p-2 text-black"
                 to={"/ProductorDetailCard/" + (id + 1)}
               >
-                <AiFillCaretRight className="text-2xl text-black md:text-3xl" />
+                <AiFillCaretRight className="text-2xl text-black md:text-3xl hover:text-red-700" />
               </Link>
             </div>
           </div>
