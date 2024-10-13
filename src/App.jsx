@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { Routes, Route } from "react-router-dom";
 import ProductorDetailCard from "./ProductorDetailCard";
 function App() {
-  const sevedDataString = localStorage.getItem("my-cart") || {};
+  const sevedDataString = localStorage.getItem("my-cart") || "{}";
   const sevedData = JSON.parse(sevedDataString);
   const [cart, setCart] = useState(sevedData);
   function handleAddToCart(productId, count) {
