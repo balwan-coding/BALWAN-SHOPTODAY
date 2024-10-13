@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { HiArrowNarrowLeft } from "react-icons/hi";
-import { HiArrowRight } from "react-icons/hi";
 import { getProductData } from "./api";
 import Loding from "./Loding";
 import NotFoun from "./NotFoun";
+import { AiFillCaretLeft } from "react-icons/ai";
+import { AiFillCaretRight } from "react-icons/ai";
+import { HiArrowNarrowLeft } from "react-icons/hi";
 
 function ProductorDetailCard({ onAddToCart }) {
   const id = +useParams().id;
@@ -113,30 +114,30 @@ function ProductorDetailCard({ onAddToCart }) {
                 Add to card
               </button>
             </div>
-          </div>
-        </div>
-        <div className="flex justify-between m-2 ">
-          {id > 1 ? (
-            <Link
-              onClick={handlePrevewCunt}
-              className="flex p-2 text-white bg-blue-950"
-              to={"/ProductorDetailCard/" + (id - 1)}
-            >
-              <HiArrowNarrowLeft className="text-3xl text-white" /> Preview
-            </Link>
-          ) : (
-            <div className="flex p-2 text-white cursor-not-allowed bg-slate-600">
-              <HiArrowNarrowLeft className="text-2xl text-white md:text-3xl" />{" "}
-              Preview
+            <div className="flex justify-between m-2 -top-30">
+              {id > 1 ? (
+                <Link
+                  onClick={handlePrevewCunt}
+                  className="flex p-2 text-black"
+                  to={"/ProductorDetailCard/" + (id - 1)}
+                >
+                  <AiFillCaretLeft className="text-3xl text-black md:text-3xl" />{" "}
+                </Link>
+              ) : (
+                <div className="flex p-2 cursor-not-allowed ">
+                  <AiFillCaretLeft className="text-2xl text-black md:text-3xl" />
+                </div>
+              )}
+
+              <Link
+                onClick={handleNextCount}
+                className="flex p-2 text-black"
+                to={"/ProductorDetailCard/" + (id + 1)}
+              >
+                <AiFillCaretRight className="text-2xl text-black md:text-3xl" />
+              </Link>
             </div>
-          )}
-          <Link
-            onClick={handleNextCount}
-            className="flex p-2 text-white bg-blue-950"
-            to={"/ProductorDetailCard/" + (id + 1)}
-          >
-            Next <HiArrowRight className="text-3xl text-white" />
-          </Link>
+          </div>
         </div>
       </div>
     </>
