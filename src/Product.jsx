@@ -5,7 +5,11 @@ function Product({ thumbnail, category, title, price, rating, id }) {
   return (
     <div className="max-w-md py-2 m-1 border-black shadow hover:border hover:-translate-y-2 hover:shadow-2xl">
       <div className="w-full aspect-square">
-        <img className="object-cover w-full h-full" src={thumbnail} alt="" />
+        <img
+          className="object-cover w-full h-full"
+          src={thumbnail}
+          alt={title}
+        />
       </div>
       <div className="m-2">
         <p className="text-gray-300">{category}</p>

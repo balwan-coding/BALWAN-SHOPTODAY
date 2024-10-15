@@ -76,6 +76,7 @@ function ProductorDetailCard({ onAddToCart }) {
             <img
               className="object-cover w-full h-full"
               src={product.thumbnail}
+              alt={product.title}
             />
           </div>
           <div className="flex flex-col gap-2 p-2">
