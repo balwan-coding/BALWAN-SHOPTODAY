@@ -49,10 +49,12 @@ function ProductorDetailCard({ onAddToCart }) {
 
   function handlePrevewCunt() {
     setCount(1);
+    setLoading(true);
   }
 
   function handleNextCount() {
     setCount(1);
+    setLoading(true);
   }
 
   if (loading) {
