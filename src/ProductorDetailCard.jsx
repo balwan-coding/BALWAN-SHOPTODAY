@@ -67,12 +67,12 @@ function ProductorDetailCard({ onAddToCart }) {
 
   return (
     <>
-      <div className="flex flex-col h-screen max-w-md mb-2 bg-transparent sm:mx-auto md:max-w-4xl md:flex ">
+      <div className="flex flex-col max-w-md mb-2 bg-transparent sm:h-screen md:h-screen sm:mx-auto md:max-w-4xl md:flex ">
         <div className="flex flex-col h-full mt-3 bg-white shadow-md sm:h-96 md:flex-row md:w-auto">
           <Link to="/">
             <HiArrowNarrowLeft className="text-3xl hover:text-red-700" />
           </Link>
-          <div className="w-full aspect-square md:h-full md:aspect-square">
+          <div className="w-full h-full aspect-square md:h-full md:aspect-square">
             <img
               className="object-cover w-full h-full"
               src={product.thumbnail}
