@@ -1,6 +1,7 @@
 import React from "react";
 import { SiShopee } from "react-icons/si";
 import logo from "/logo-shoptoday.webp";
+import { Link } from "react-router-dom";
 
 function Navbar({ productCount }) {
   return (
@@ -8,10 +9,12 @@ function Navbar({ productCount }) {
       {/* <h1 className="text-3xl font-semibold text-pink-500">TODAYSHOP</h1> */}
       <img className="w-16" src={logo} alt="" />
       <div className="px-3">
-        <span className="relative p-2 px-4 font-bold text-white bg-red-700 top-5 left-6 md:left-10 rounded-3xl">
-          {productCount}
-        </span>
-        <SiShopee className="m-1 text-4xl cursor-pointer md:text-6xl hover:text-red-500" />
+        <Link to="/CartPage">
+          <span className="relative p-2 px-4 font-bold text-white bg-red-700 top-5 left-6 md:left-10 rounded-3xl">
+            {productCount}
+          </span>
+          <SiShopee className="m-1 text-4xl cursor-pointer md:text-6xl hover:text-red-500" />
+        </Link>
       </div>
     </nav>
   );
