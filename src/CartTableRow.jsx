@@ -12,7 +12,7 @@ function CartTableRow() {
               className="object-cover w-full h-full"
             />
           </div>
-          <span className="text-sm text-red-600 sm:text-base">
+          <span className="hidden text-sm text-red-600 md:block sm:block sm:text-base">
             Black Printed Coffee Mug
           </span>
         </td>
