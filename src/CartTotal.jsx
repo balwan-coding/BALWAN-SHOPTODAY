@@ -16,7 +16,7 @@ function CartTotal() {
         <span className="text-sm text-gray-600 sm:text-base">Total</span>
         <span className="text-sm text-gray-900 sm:text-base">$166.00</span>
       </div>
-      <button className="w-full py-3 text-sm text-white bg-red-500 rounded-lg sm:text-base">
+      <button className="w-full py-3 text-sm text-white bg-red-500 rounded-lg hover:bg-red-600 sm:text-base">
         Proceed to Checkout
       </button>
     </div>

@@ -10,7 +10,7 @@ function Navbar({ productCount }) {
       <img className="w-16" src={logo} alt="logo" />
       <div className="px-3">
         <Link to="/CartPage">
-          <span className="relative p-2 px-4 font-bold text-white bg-red-700 top-5 left-6 md:left-10 rounded-3xl">
+          <span className="box-border relative w-3 h-3 p-2 px-4 overflow-hidden font-bold text-white bg-red-700 top-5 left-6 md:left-10 rounded-3xl">
             {productCount}
           </span>
           <SiShopee className="m-1 text-4xl cursor-pointer md:text-6xl hover:text-red-500" />

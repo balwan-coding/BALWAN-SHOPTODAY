@@ -5,7 +5,7 @@ function CartTableRow() {
     <tbody>
       <tr className="border-b">
         <td className="flex items-center py-2 sm:py-4">
-          <div className="w-12 h-12 mr-2 sm:w-16 sm:h-16 sm:mr-4">
+          <div className="w-20 h-20 mr-2 sm:w-20 sm:h-20 sm:mr-4">
             <img
               src="https://m.media-amazon.com/images/I/613DO72D-ZL._AC_UL480_FMwebp_QL65_.jpg"
               alt="Black Printed Coffee Mug"

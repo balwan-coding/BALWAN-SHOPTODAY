@@ -9,11 +9,11 @@ function CouponCart() {
           placeholder="Coupon code"
           className="w-full p-2 text-sm border rounded-lg sm:w-64 sm:text-base"
         />
-        <button className="w-full px-4 py-2 text-sm text-white bg-red-500 rounded-lg sm:text-base sm:w-auto">
+        <button className="w-full px-4 py-2 text-sm text-white bg-red-500 rounded-lg hover:bg-red-600 sm:text-base sm:w-auto">
           Apply Coupon
         </button>
       </div>
-      <button className="w-full px-4 py-2 text-sm text-white bg-red-300 rounded-lg sm:text-base sm:w-auto">
+      <button className="w-full px-4 py-2 text-sm text-white bg-red-300 rounded-lg hover:bg-red-500 sm:text-base sm:w-auto">
         Update Cart
       </button>
     </div>

@@ -57,6 +57,10 @@ function ProductorDetailCard({ onAddToCart }) {
     setLoading(true);
   }
 
+  if (count < 0) {
+    setCount("");
+  }
+
   if (loading) {
     return <Loding />;
   }
