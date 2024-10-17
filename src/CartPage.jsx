@@ -5,7 +5,7 @@ import CartTotal from "./CartTotal";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-function CartPage() {
+function CartPage({ productCount }) {
   return (
     <div className="p-4 mt-2 mb-2 bg-white md:auto sm:m-2 sm:p-6 md:p-8">
       <Link to="/">
