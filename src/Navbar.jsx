@@ -9,14 +9,13 @@ function Navbar({ productCount }) {
       <div className="w-12 sm:w-16 md:w-16 aspect-square">
         <img className="object-cover w-full h-full" src={logo} alt="logo" />
       </div>
-      <div className="px-3">
-        <Link to="/CartPage">
-          <span className="box-border relative w-3 h-3 p-2 px-4 overflow-hidden font-bold text-white bg-red-700 top-5 left-6 md:left-10 rounded-3xl">
-            {productCount}
-          </span>
-          <SiShopee className="m-1 text-4xl cursor-pointer md:text-6xl hover:text-red-500" />
-        </Link>
-      </div>
+
+      <Link to="/CartPage" className="flex items-center">
+        <span className="relative flex items-center p-2 overflow-hidden font-bold text-white bg-red-700 rounded-full w-9 md:w-9 sm:w-9 -top-5 -right-16 md:-right-20 sm:-right-20">
+          {productCount}
+        </span>
+        <SiShopee className="m-1 text-4xl cursor-pointer md:text-6xl hover:text-red-500" />
+      </Link>
     </nav>
   );
 }

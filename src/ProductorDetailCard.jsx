@@ -30,7 +30,6 @@ function ProductorDetailCard({ onAddToCart }) {
 
   function hindalCountChange(event) {
     setCount(+event.target.value);
-    +setCount();
   }
 
   function increment() {
