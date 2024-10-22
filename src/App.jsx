@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import { Routes, Route } from "react-router-dom";
 import ProductorDetailCard from "./ProductorDetailCard";
 import CartPage from "./CartPage";
+import LoginPage from "./LoginPage";
+import SingupPage from "./SignupPage";
 function App() {
   const sevedDataString = localStorage.getItem("my-cart") || "{}";
   const sevedData = JSON.parse(sevedDataString);
@@ -34,6 +36,8 @@ function App() {
             ></Route>
 
             <Route path="/CartPage" element={<CartPage />}></Route>
+            <Route path="/LoginPage" element={<LoginPage />}></Route>
+            <Route path="/SingupPage" element={<SingupPage />}></Route>
           </Routes>
         </div>
       </div>
