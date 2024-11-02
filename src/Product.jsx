@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Product({ thumbnail, category, title, price, rating, id }) {
+function Product({ thumbnail, category, title, price, id }) {
   return (
     <div className="max-w-md py-2 m-1 border-black shadow hover:border hover:-translate-y-2 hover:shadow-2xl">
       <div className="w-full aspect-square">

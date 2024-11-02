@@ -7,13 +7,19 @@ import ProductorDetailCard from "./ProductorDetailCard";
 import CartPage from "./CartPage";
 import LoginPage from "./LoginPage";
 import SingupPage from "./SignupPage";
+
 function App() {
   const sevedDataString = localStorage.getItem("my-cart") || "{}";
   const sevedData = JSON.parse(sevedDataString);
   const [cart, setCart] = useState(sevedData);
+
   function handleAddToCart(productId, count) {
     const oldCound = cart[productId] || 0;
     const newCart = { ...cart, [productId]: oldCound + count };
+    updateCard(newCart);
+  }
+
+  function updateCard(newCart) {
     setCart(newCart);
     const cartString = JSON.stringify(newCart);
     localStorage.setItem("my-cart", cartString);
@@ -35,7 +41,10 @@ function App() {
               element={<ProductorDetailCard onAddToCart={handleAddToCart} />}
             ></Route>
 
-            <Route path="/CartPage" element={<CartPage />}></Route>
+            <Route
+              path="/CartPage"
+              element={<CartPage cart={cart} updateCard={updateCard} />}
+            ></Route>
             <Route path="/LoginPage" element={<LoginPage />}></Route>
             <Route path="/SingupPage" element={<SingupPage />}></Route>
           </Routes>
