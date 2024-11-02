@@ -79,7 +79,7 @@ function ProductorDetailCard({ onAddToCart }) {
           </Link>
           <div className="w-full h-full aspect-square md:h-full md:aspect-square">
             <img
-              className="object-cover w-full h-full translate-x-4 hover:scale-125"
+              className="object-cover w-full h-full hover:scale-125"
               src={product.thumbnail}
               alt={product.title}
             />

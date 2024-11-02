@@ -5,7 +5,8 @@ function CartTableRow({ product, quantity, onQuantityChange, onRemove }) {
   const formattedTotal = (product.price * quantity).toFixed(2);
 
   function handleChange(event) {
-    onQuantityChange(product.id, +event.target.value);
+    const value = event.target.value;
+    onQuantityChange(product.id, value === "" ? "" : +value);
   }
 
   function crossRemoveClick() {
