@@ -2,24 +2,42 @@ import React from "react";
 import * as Yup from "yup";
 import { withFormik } from "formik";
 import { Link } from "react-router-dom";
-import { FormickInput } from "./Input";
+import Input from "./Input";
+import axios from "axios";
+import Button from "./Button";
+import { withAlert } from "./withProvider";
+import { withUser } from "./withProvider";
 
-function singupApi(values) {
-  console.log(values.email, values.password, values.username);
+function singupApi(values, bag) {
+  axios
+    .post("https://myeasykart.codeyogi.io/signup", {
+      email: values.email,
+      password: values.password,
+      full_Name: values.fullName,
+    })
+    .then((response) => {
+      const { user, token } = response.data;
+      localStorage.setItem("token", token);
+      bag.props.setUser(user);
+    })
+    .catch(() => {
+      bag.props.setUser({
+        type: "error",
+        message: "login is faild",
+      });
+    });
 }
 
 const schema = Yup.object().shape({
-  email: Yup.string().email().required("Email is required"),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
-  username: Yup.string().required("Username is required"),
+  email: Yup.string().email().required(),
+  password: Yup.string().min(8).required(),
+  fullName: Yup.string().required(),
 });
 
 const initialValues = {
   email: "",
   password: "",
-  username: "",
+  fullName: "",
 };
 
 function SingupPage({
@@ -36,52 +54,49 @@ function SingupPage({
         <h1 className="text-3xl font-bold">Welcome to ShopToday</h1>
         <h1 className="items-end font-mono text-3xl"> signup</h1>
 
-        <form onSubmit={singupApi} className="flex flex-col m-2">
-          <FormickInput
-            type="email"
-            id="xyz"
-            placeholder="email"
-            name="email"
-            autoComplete="email"
-            required
-            label="Email"
-            onBlur={handleBlur}
-            onChange={handleChange}
+        <form onSubmit={handleSubmit} className="flex flex-col m-2">
+          <Input
             values={values.email}
             error={errors.email}
             touched={touched.email}
-          />
-
-          <FormickInput
-            type="password"
-            id="wxy"
-            placeholder="Enter your password"
-            name="password"
-            autoComplete="password"
-            required
-            label="Password"
-            onBlur={handleBlur}
             onChange={handleChange}
+            onBlur={handleBlur}
+            label="Email address"
+            id="email-address"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="Email or Username"
+          />
+          <Input
             values={values.password}
             error={errors.password}
             touched={touched.password}
-          />
-
-          <FormickInput
-            type="text"
-            placeholder="username"
-            name="username"
-            autoComplete="true"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            label="Password"
+            id="xyz"
+            name="password"
+            type="password"
             required
-            label="Username"
-            id="user"
+            autoComplete="current-password"
+            placeholder="Password"
           />
-          <button
-            type="submit"
-            className="p-1 m-1 text-xl bg-red-500 disabled:bg-neutral-700 disabled:hover:none rounded-3xl hover:bg-red-600"
-          >
-            signup
-          </button>
+          <Input
+            error={errors.fullName}
+            touched={touched.fullName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            label="FullName"
+            id="fullName"
+            name="fullName"
+            type="text"
+            required
+            autoComplete="current-fullName"
+            placeholder="FullNam"
+          />
+          <Button type="submit">signup</Button>
         </form>
 
         <p className="m-1">
@@ -96,10 +111,10 @@ function SingupPage({
   );
 }
 
-const formickSingp = withFormik({
+const formilSignup = withFormik({
   validationSchema: schema,
   initialValues: initialValues,
   handleSubmit: singupApi,
 })(SingupPage);
 
-export default formickSingp;
+export default withAlert(withUser(formilSignup));

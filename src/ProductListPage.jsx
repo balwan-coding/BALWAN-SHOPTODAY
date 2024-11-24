@@ -3,8 +3,9 @@ import Productlist from "./Productlist";
 import NoProduct from "./NoProduct";
 import { getProductList } from "./api";
 import Loding from "./Loding";
+import { withUser } from "./withProvider";
 
-function ProductListPage() {
+function ProductListPage({ user }) {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default");
 
@@ -56,6 +57,7 @@ function ProductListPage() {
   return (
     <>
       <div className="max-w-6xl p-2 py-12 m-2 mx-auto my-16 bg-white px-9">
+        <h1>{user.email}</h1>
         <input
           value={query}
           onChange={handelQueryChange}
@@ -91,4 +93,4 @@ function ProductListPage() {
   );
 }
 
-export default ProductListPage;
+export default withUser(ProductListPage);

@@ -39,7 +39,7 @@ function CartPage({ cart, updateCard }) {
   }
 
   return (
-    <div className="p-4 mt-2 mb-2 bg-white md:auto sm:m-2 sm:p-6 md:p-8">
+    <div className="p-4 mx-auto mt-2 mb-2 bg-white max-w-7xl md:auto sm:m-2 sm:p-6 md:p-8">
       <Link to="/">
         <HiArrowNarrowLeft className="text-3xl hover:text-red-700" />
       </Link>

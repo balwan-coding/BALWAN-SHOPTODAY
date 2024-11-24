@@ -7,6 +7,11 @@ import ProductorDetailCard from "./ProductorDetailCard";
 import CartPage from "./CartPage";
 import LoginPage from "./LoginPage";
 import SingupPage from "./SignupPage";
+import AuthRoute from "./AuthRoute";
+import UserRoute from "./UserRoute";
+import Alert from "./Alert";
+import AlertProvider from "./provider/AlertProvider";
+import UserProvider from "./provider/UserProvider";
 
 function App() {
   const sevedDataString = localStorage.getItem("my-cart") || "{}";
@@ -31,26 +36,59 @@ function App() {
 
   return (
     <>
-      <Navbar productCount={totalCount} />
-      <div className="flex flex-col">
-        <div className="grow">
-          <Routes>
-            <Route index element={<ProductListPage />}></Route>
-            <Route
-              path="/ProductorDetailCard/:id/"
-              element={<ProductorDetailCard onAddToCart={handleAddToCart} />}
-            ></Route>
+      <UserProvider>
+        <AlertProvider>
+          <Navbar productCount={totalCount} />
+          <Alert />
+          <div className="flex flex-col">
+            <div className="">
+              <Routes>
+                <Route
+                  index
+                  element={
+                    <UserRoute>
+                      <ProductListPage />{" "}
+                    </UserRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/ProductorDetailCard/:id/"
+                  element={
+                    <ProductorDetailCard onAddToCart={handleAddToCart} />
+                  }
+                ></Route>
 
-            <Route
-              path="/CartPage"
-              element={<CartPage cart={cart} updateCard={updateCard} />}
-            ></Route>
-            <Route path="/LoginPage" element={<LoginPage />}></Route>
-            <Route path="/SingupPage" element={<SingupPage />}></Route>
-          </Routes>
-        </div>
-      </div>
-      <Footer />
+                <Route
+                  path="/CartPage"
+                  element={
+                    <UserRoute>
+                      <CartPage cart={cart} updateCard={updateCard} />
+                    </UserRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/LoginPage"
+                  element={
+                    <AuthRoute>
+                      <LoginPage />
+                    </AuthRoute>
+                  }
+                ></Route>
+
+                <Route
+                  path="/SingupPage"
+                  element={
+                    <AuthRoute>
+                      <SingupPage />
+                    </AuthRoute>
+                  }
+                ></Route>
+              </Routes>
+            </div>
+          </div>
+          <Footer />
+        </AlertProvider>
+      </UserProvider>
     </>
   );
 }
