@@ -2,9 +2,9 @@ import React from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import logo from "/logo-shoptoday.webp";
 import { Link } from "react-router-dom";
-import { withUser } from "./withProvider";
+import { withCart, withUser } from "./withProvider";
 
-function Navbar({ productCount, setUser }) {
+function Navbar({ cartCount, setUser }) {
   function handleLogOut() {
     localStorage.removeItem("token");
     setUser(undefined);
@@ -26,7 +26,7 @@ function Navbar({ productCount, setUser }) {
         </Link>
         <Link to="/CartPage" className="flex items-center">
           <span className="relative flex text-2xl font-bold text-orange-600 left-11 ">
-            {productCount}
+            {cartCount}
           </span>
           <CiShoppingCart className="m-1 text-6xl cursor-pointer md:text-6xl hover:text-red-500" />
         </Link>
@@ -34,4 +34,4 @@ function Navbar({ productCount, setUser }) {
     </nav>
   );
 }
-export default withUser(Navbar);
+export default withUser(withCart(Navbar));

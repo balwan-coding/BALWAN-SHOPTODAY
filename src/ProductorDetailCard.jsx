@@ -7,8 +7,9 @@ import NotFoun from "./NotFoun";
 import { AiFillCaretLeft } from "react-icons/ai";
 import { AiFillCaretRight } from "react-icons/ai";
 import { HiArrowNarrowLeft } from "react-icons/hi";
+import { withCart } from "./withProvider";
 
-function ProductorDetailCard({ onAddToCart }) {
+function ProductorDetailCard({ addToCart }) {
   const id = +useParams().id;
 
   const [product, setProduct] = useState();
@@ -44,7 +45,7 @@ function ProductorDetailCard({ onAddToCart }) {
   }
 
   function handleButtonClick() {
-    onAddToCart(id, count);
+    addToCart(id, count);
     setCount(1);
   }
 
@@ -152,4 +153,4 @@ function ProductorDetailCard({ onAddToCart }) {
   );
 }
 
-export default ProductorDetailCard;
+export default withCart(ProductorDetailCard);

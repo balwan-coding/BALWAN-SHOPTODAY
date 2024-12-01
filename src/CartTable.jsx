@@ -2,30 +2,37 @@ import React from "react";
 import CartTableRow from "./CartTableRow";
 import { useEffect, useState } from "react";
 import CouponCart from "./CouponCart";
+import { withCart } from "./withProvider";
 
-function CartTable({ products, cart, updateCard }) {
-  const [localCart, setLocalCalrt] = useState(cart);
+function CartTable({ cart, updateCard }) {
+  const [quantityMap, setQuantityMap] = useState({}); // यहाँ डिफॉल्ट वैल्यू सेट की
+
+  const cartToQuantityMap = () =>
+    cart.reduce(
+      (m, cartItem) => ({ ...m, [cartItem.product.id]: cartItem.quantity }),
+      {}
+    );
 
   useEffect(
     function () {
-      setLocalCalrt(cart);
+      setQuantityMap(cartToQuantityMap());
     },
     [cart]
   );
 
-  function handleQuantityChange(productid, newValue) {
-    const newLocalCart = { ...localCart, [productid]: newValue };
-    setLocalCalrt(newLocalCart);
-  }
-
-  function handleRemove(productId) {
-    const newCart = { ...cart };
-    delete newCart[productId];
-    updateCard(newCart);
+  function handleQuanityChange(productId, newValue) {
+    const newQuantityMap = { ...quantityMap, [productId]: newValue };
+    setQuantityMap(newQuantityMap);
   }
 
   function handleUpdetCartClick() {
-    updateCard(localCart);
+    updateCard(quantityMap);
+  }
+
+  function handleRemove(productId) {
+    const newQuantityMap = cartToQuantityMap();
+    delete newQuantityMap[productId];
+    updateCard(newQuantityMap);
   }
 
   return (
@@ -39,21 +46,21 @@ function CartTable({ products, cart, updateCard }) {
             <th className="pb-2 sm:pb-4">Subtotal</th>
           </tr>
         </thead>
-        {products.map(function (p) {
-          return (
+        <tbody>
+          {cart.map((cartItem) => (
             <CartTableRow
-              key={p.id}
-              product={p}
-              quantity={localCart[p.id]}
-              onQuantityChange={handleQuantityChange}
+              key={cartItem.product.id}
+              product={cartItem.product}
+              quantity={quantityMap[cartItem.product.id] || cartItem.quantity}
+              onQuantityChange={handleQuanityChange}
               onRemove={handleRemove}
             />
-          );
-        })}
+          ))}
+        </tbody>
       </table>
       <CouponCart handleUpdetCartClick={handleUpdetCartClick} />
     </>
   );
 }
 
-export default CartTable;
+export default withCart(CartTable);

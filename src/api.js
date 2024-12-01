@@ -2,14 +2,101 @@ import axios from "axios";
 
 export function getProductData(id) {
   return axios
-    .get("https://dummyjson.com/products/" + id)
+    .get("https://myeasykart.codeyogi.io/product/" + id)
     .then(function (response) {
       return response.data;
     });
 }
 
-export function getProductList() {
-  return axios.get("https://dummyjson.com/products").then(function (response) {
-    return response.data.products;
-  });
+export function getProductsByIds(ids) {
+  const commaSepartedIds = ids.join();
+  return axios
+    .get("https://myeasykart.codeyogi.io/products/bulk", {
+      params: {
+        ids: commaSepartedIds,
+      },
+    })
+    .then(function (response) {
+      return response.data;
+    });
+}
+
+export function getProductList(sortBy, search, page, sortType) {
+  let params = {};
+  if (sortBy) {
+    params.sortby = sortBy;
+  }
+  if (sortType) {
+    params.sortType = sortType;
+  }
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+
+  return axios
+    .get("https://myeasykart.codeyogi.io/products", {
+      params,
+    })
+    .then(function (response) {
+      return response.data;
+    });
+}
+
+// export function saveCart(cart) {
+//   return axios
+//     .post(
+//       "https://myeasykart.codeyogi.io/carts",
+//       { data: cart },
+//       {
+//         headers: {
+//           Authorization: localStorage.getItem("token"),
+//         },
+//       }
+//     )
+//     .then(function (response) {
+//       return response.data;
+//     });
+// }
+
+// export function getCart() {
+//   return axios
+//     .post("https://myeasykart.codeyogi.io/carts", {
+//       headers: {
+//         Authorization: localStorage.getItem("token"),
+//       },
+//     })
+//     .then(function (response) {
+//       return response.data;
+//     });
+// }
+
+export function saveCart(cart) {
+  return axios
+    .post(
+      "https://myeasykart.codeyogi.io/carts",
+      { data: cart },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    )
+    .then(function (response) {
+      return response.data;
+    });
+}
+
+export function getCart() {
+  return axios
+    .get("https://myeasykart.codeyogi.io/carts", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+    .then(function (response) {
+      return response.data;
+    });
 }

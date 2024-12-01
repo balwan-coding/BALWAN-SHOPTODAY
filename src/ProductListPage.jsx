@@ -4,50 +4,57 @@ import NoProduct from "./NoProduct";
 import { getProductList } from "./api";
 import Loding from "./Loding";
 import { withUser } from "./withProvider";
+import { range } from "lodash";
+import { Link, useSearchParams } from "react-router-dom";
 
 function ProductListPage({ user }) {
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("default");
-
-  const [productList, setProductLinst] = useState([]);
+  const [productData, setProductData] = useState();
   const [loading, setLoading] = useState(true);
 
-  useEffect(function () {
-    const list = getProductList();
-    list.then(function (products) {
-      setProductLinst(products);
-      setLoading(false);
-      return products[0];
-    });
-  }, []);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const data = productList.filter(function (item) {
-    const lowerCaseData = item.title.toLowerCase();
-    const lowerCasequery = query.toLowerCase();
+  let params = Object.fromEntries([...searchParams]);
 
-    return lowerCaseData.indexOf(lowerCasequery) != -1;
-  });
+  let { query, sort, page } = params;
 
-  if (sort == "priseH") {
-    data.sort(function (x, y) {
-      return y.price - x.price;
-    });
-  } else if (sort == "priseL") {
-    data.sort(function (x, y) {
-      return x.price - y.price;
-    });
-  } else if (sort == "name") {
-    data.sort(function (x, y) {
-      return x.title < y.title ? -1 : 1;
-    });
-  }
+  query = query || "";
+  sort = sort || "default";
+  page = +page || 1;
+
+  useEffect(
+    function () {
+      let sortBy;
+      let sortType;
+
+      if (sort == "title") {
+        sortBy = "title";
+      } else if (sort == "lowToHigh") {
+        sortBy = "price";
+      } else if (sort == "highToLow") {
+        sortBy = "price";
+        sortType = "desc";
+      }
+
+      getProductList(sortBy, query, page, sortType).then(function (body) {
+        setProductData(body);
+        setLoading(false);
+      });
+    },
+    [sort, query, page]
+  );
 
   function handelQueryChange(event) {
-    setQuery(event.target.value);
+    setSearchParams(
+      { ...params, query: event.target.value, page: 1 },
+      { replace: false }
+    );
   }
 
   function handelSortChange(event) {
-    setSort(event.target.value);
+    setSearchParams(
+      { ...params, sort: event.target.value },
+      { replace: false }
+    );
   }
 
   if (loading) {
@@ -56,8 +63,8 @@ function ProductListPage({ user }) {
 
   return (
     <>
-      <div className="max-w-6xl p-2 py-12 m-2 mx-auto my-16 bg-white px-9">
-        <h1>{user.email}</h1>
+      <div className="max-w-6xl min-h-screen p-2 py-12 m-2 mx-auto my-16 bg-white px-9">
+        <h1>{user.fullName}</h1>
         <input
           value={query}
           onChange={handelQueryChange}
@@ -71,23 +78,28 @@ function ProductListPage({ user }) {
           onChange={handelSortChange}
           value={sort}
         >
-          <option value="default">Default sort</option>
-          <option value="priseH">Sort by high to low Prise</option>
-          <option value="priseL">Sort by low to high Prise</option>
-          <option value="name">Sort by Title</option>
+          <option value="default">Default Sort</option>
+          <option value="title">Sort by Title</option>
+          <option value="lowToHigh">Sort by Price: Low to High</option>
+          <option value="highToLow">Sort By Price: High to Low</option>
         </select>
-        {data.length > 0 && <Productlist products={data} />}
-        {data.length == 0 && <NoProduct />}
-        <button className="px-3 py-1 m-1 font-bold text-white bg-red-700 border border-black hover:bg-red-500">
-          1
-        </button>
-        <button className="px-3 py-1 m-1 font-bold text-white bg-red-700 border border-black hover:bg-red-500">
-          2
-        </button>
-        <button className="px-3 py-1 m-1 font-bold text-white bg-red-700 border border-black hover:bg-red-500 ">
-          3
-        </button>
-        ...
+        {productData.data.length > 0 && (
+          <Productlist products={productData.data} />
+        )}
+        {productData.data.length == 0 && <NoProduct />}
+
+        {range(1, productData.meta.last_page + 1).map((pageNo) => (
+          <Link
+            key={pageNo}
+            to={"?" + new URLSearchParams({ ...params, page: pageNo })}
+            className={
+              "px-3 py-1 m-1 font-bold text-white border border-black " +
+              (pageNo === page ? "bg-red-700" : "bg-red-400")
+            }
+          >
+            {pageNo}
+          </Link>
+        ))}
       </div>
     </>
   );
